@@ -6,17 +6,16 @@ Save the following server in example.js:
 */
 
 var net = require('net');
+var host = 'localhost';
+var port = 1337 ;
 
 var server = net.createServer(function(socket) {
 	socket.write('Echo server\r\n');
     socket.pipe(socket);
-    console.log(socket.remotePort);
 });
 
-server.listen(1337, '127.0.0.1');
-
-server.on('data', function(data) {
-	console.log('Received: ' + data);
+server.listen(port, function(){
+	console.log('Listening on Port : '+port);
 });
 
 /*
@@ -34,8 +33,9 @@ http://www.hacksparrow.com/tcp-socket-programming-in-node-js.html.)
 
 var net = require('net');
 
+
 var client = new net.Socket();
-client.connect(1337, '127.0.0.1', function() {
+client.connect(port, host, function() {
 	console.log('Connected');
 	client.write('Hello, server! Love, Client.');
 });
@@ -48,5 +48,5 @@ client.on('data', function(data) {
 client.on('close', function() {
 	console.log('Connection closed');
 });
-
 */
+
